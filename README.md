@@ -1,49 +1,19 @@
 # Peeps: A demo of JSONAPI-Resources
 
-Peeps is a very basic contact management system implemented as an API that follows the JSON API spec. 
+Peeps is a very basic contact management system implemented as an API that follows the JSON API spec.
 
-Other apps will soon be written to demonstrate writing a consumer for this API.
+## No really, What is this?
 
-The instructions below were used to create this app.
+This project demonstrates how to use JSON API Resources with a NoSQL, ActiveModel replacement **without** ActiveRecord.
 
+In this case, the demo uses Mongoid and MongoDB. In theory, NoBrainer and RethinkDB would also work with a few adjustments.
 
-## Initial Steps to create this app
+## Areas of Opportunity
 
-### Create a new Rails application
-
-```bash
-rails new peeps --skip-javascript
-```
-
-or
-
-```bash
-rails new peeps -d postgresql --skip-javascript
-```
-
-### Create the databases
-
-```bash
-rake db:create
-```
-
-### Add the JSONAPI-Resources gem
-Add the gem to your Gemfile
-
-```bash
-gem 'jsonapi-resources'
-```
-
-Then bundle
-
-```bash
-bundle
-```
-
-### Derive Application Controller from JSONAPI::ResourceController
-Make the following changes to application_controller.rb
+This demo patches JSON API ResourceController to avoid using `ActiveRecord`. (see https://github.com/cerebris/jsonapi-resources/issues/51)
 
 ```ruby
+<<<<<<< HEAD
 class ApplicationController < JSONAPI::ResourceController
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
@@ -162,9 +132,26 @@ Add the routes for the new resources
 jsonapi_resources :contacts
 jsonapi_resources :phone_numbers
 ```
+=======
+module JSONAPI
+  class ResourceController
 
+    def create_operations_processor
+      JSONAPI::OperationsProcessor.new
+    end
+
+  end
+end
+```
+
+Record filtering relies on ActiveRecord to turn `records.where` into an `IN` query in SQL. This needs an adjustment (not currently included) to enable filtering in Mongoid. (see https://github.com/cerebris/jsonapi-resources/issues/118)
+>>>>>>> Peeps without ActiveRecord (using Mongoid)
+
+Some error handling tries to catch/rescue `ActiveRecord` errors like `ActiveRecord::RecordNotFound`. Sadly, `rescue ActiveRecord::RecordNotFound => e` throws an error because `ActiveRecord` isn't loaded. (see https://github.com/cerebris/jsonapi-resources/issues/127)
 
 ## Test it out
+
+Start a mongo instance with `mongod`.
 
 Launch the app
 
