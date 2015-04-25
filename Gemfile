@@ -40,4 +40,4 @@ end
 # Use debugger
 # gem 'debugger', group: [:development, :test]
 
-gem 'jsonapi-resources'
+gem 'jsonapi-resources', :github => 'cerebris/jsonapi-resources', branch: 'remove_ar'

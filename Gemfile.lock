@@ -1,3 +1,11 @@
+GIT
+  remote: git://github.com/cerebris/jsonapi-resources.git
+  revision: bbb12664a14ef9ecbf937f2895402593f4b3ced8
+  branch: remove_ar
+  specs:
+    jsonapi-resources (0.3.2)
+      rails (>= 4.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -57,8 +65,6 @@ GEM
       activesupport (>= 3.0.0)
       multi_json (>= 1.2.0)
     json (1.8.2)
-    jsonapi-resources (0.3.1)
-      rails (>= 4.0)
     loofah (2.0.1)
       nokogiri (>= 1.5.9)
     mail (2.6.3)
@@ -142,7 +148,7 @@ PLATFORMS
 DEPENDENCIES
   coffee-rails (~> 4.0.0)
   jbuilder (~> 1.2)
-  jsonapi-resources
+  jsonapi-resources!
   mongoid
   moped
   rails (= 4.2)
